@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatConfession01.Plugins", "CatConfession01.Plugins.csproj", "{19059CD7-C472-1C18-4AF0-1E8D8DA75615}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatConfession01", "CatConfession01.csproj", "{4CB2B936-1CB3-B4DA-DDA0-513F2EC1C949}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatConfession01.Editor", "CatConfession01.Editor.csproj", "{5DDD2689-0207-978A-5C45-EECA83B27362}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19059CD7-C472-1C18-4AF0-1E8D8DA75615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19059CD7-C472-1C18-4AF0-1E8D8DA75615}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19059CD7-C472-1C18-4AF0-1E8D8DA75615}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19059CD7-C472-1C18-4AF0-1E8D8DA75615}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CB2B936-1CB3-B4DA-DDA0-513F2EC1C949}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CB2B936-1CB3-B4DA-DDA0-513F2EC1C949}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CB2B936-1CB3-B4DA-DDA0-513F2EC1C949}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CB2B936-1CB3-B4DA-DDA0-513F2EC1C949}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DDD2689-0207-978A-5C45-EECA83B27362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DDD2689-0207-978A-5C45-EECA83B27362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DDD2689-0207-978A-5C45-EECA83B27362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DDD2689-0207-978A-5C45-EECA83B27362}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
