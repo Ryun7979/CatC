@@ -23,21 +23,21 @@ Platform assembly: C:\Users\nadar\my_git\CC\CatConfession01\CC_Data\Managed\Unit
 Loading C:\Users\nadar\my_git\CC\CatConfession01\CC_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
 Platform assembly: C:\Users\nadar\my_git\CC\CatConfession01\CC_Data\Managed\Photon3Unity3D.dll (this message is harmless)
 Loading C:\Users\nadar\my_git\CC\CatConfession01\CC_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
-- Completed reload, in  0.020 seconds
+- Completed reload, in  0.019 seconds
 Platform assembly: C:\Users\nadar\my_git\CC\CatConfession01\CC_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\nadar\my_git\CC\CatConfession01\CC_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 59Hz; virtual: 3840x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 3.741013 ms
+UnloadTime: 3.679573 ms
 開始
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 2eb4 -> priority: 1 
-  Thread -> id: 2e30 -> priority: 1 
+  Thread -> id: 3c14 -> priority: 1 
+  Thread -> id: 3c80 -> priority: 1 
 OnStatusChanged: TimeoutDisconnect current State: ConnectingToNameServer
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
@@ -47,6 +47,10 @@ TimeoutDisconnect while connecting to: ns.exitgames.com:5058. Check if the serve
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 OnStatusChanged: Disconnect current State: Disconnecting
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+接続が切れたよぉ。Disconnected from Photon.
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 

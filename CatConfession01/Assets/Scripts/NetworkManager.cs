@@ -14,18 +14,49 @@ public class NetworkManager : MonoBehaviour {
     public InputField roomName;     //部屋の名前
     public InputField playerName;   //プレイヤーの名前
 
+    private bool connectFailed = false;
 
+
+    // Use this for initialization
+    void Start()
+    {
+        //ログをすべて表示する
+        PhotonNetwork.logLevel = PhotonLogLevel.Full;
+
+        //ロビーに自動で入る
+        PhotonNetwork.autoJoinLobby = true;
+
+        //ゲームのバージョン設定
+        PhotonNetwork.ConnectUsingSettings("0.1");
+
+
+        Debug.Log("開始");
+
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        text.text = PhotonNetwork.connectionStateDetailed.ToString();
+
+    }
+
+
+    //マスターサーバへの接続完了
     void OnConnectedToMastar()
     {
         Debug.Log("マスターサーバに接続");
     }
 
-
+    //ロビーに入った
     void OnJoinedLobby()
     {
         Debug.Log("ロビーに入る");
         loginUI.SetActive(true);
     }
+
 
     //ログインボタンを押したときに実行
     public void LoginGame()
@@ -57,7 +88,6 @@ public class NetworkManager : MonoBehaviour {
             }
         }
     }
-
 
 
     void OnReceivedRoomListUpdate()
@@ -118,6 +148,13 @@ public class NetworkManager : MonoBehaviour {
     }
 
 
+    //接続が切断されたときにコール
+    public void OnDisconnectedFromPhoton()
+    {
+        Debug.Log("接続が切れたよぉ。Disconnected from Photon.");
+    }
+
+
     //ログアウトボタンを押したときの処理
     public void LogoutGame()
     {
@@ -131,27 +168,4 @@ public class NetworkManager : MonoBehaviour {
         logoutUI.SetActive(false);
     }
 
-
-
-    // Use this for initialization
-    void Start () {
-        //ログをすべて表示する
-        PhotonNetwork.logLevel = PhotonLogLevel.Full;
-
-        //ロビーに自動で入る
-        PhotonNetwork.autoJoinLobby = true;
-
-        //ゲームのバージョン設定
-        PhotonNetwork.ConnectUsingSettings("0.1");
-
-        Debug.Log("開始");
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-        text.text = PhotonNetwork.connectionStateDetailed.ToString();
-		
-	}
 }
