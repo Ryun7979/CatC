@@ -9,6 +9,7 @@ public class NetworkManager : MonoBehaviour {
     public Text text;   //情報用のテキスト
     public GameObject loginUI;      //ログイン画面
     public GameObject logoutUI;     //ログアウトボタン
+    public GameObject player;
 
     public Dropdown roomList;       //部屋リストを表示するドロップダウン
     public InputField roomName;     //部屋の名前
@@ -130,6 +131,10 @@ public class NetworkManager : MonoBehaviour {
 
         //Inputfieldに入力した名前を設定
         PhotonNetwork.player.NickName = playerName.text;
+
+        //ログインを監視する
+        StartCoroutine("SetPlayer", 0f);
+
     }
 
     //部屋の入室に失敗したときに呼ばれるメソッド
@@ -167,5 +172,13 @@ public class NetworkManager : MonoBehaviour {
         Debug.Log("退室");
         logoutUI.SetActive(false);
     }
+
+    //プレイヤーをゲームの世界に出現させる
+    IEnumerator SetPlayer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        player = PhotonNetwork.Instantiate("cat", Vector3.up, Quaternion.identity, 0);
+    }
+
 
 }
