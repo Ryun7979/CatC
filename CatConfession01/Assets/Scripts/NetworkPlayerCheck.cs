@@ -9,10 +9,8 @@ public class NetworkPlayerCheck : Photon.MonoBehaviour {
     //同期するデータ
     Vector3 position;
     Quaternion rotation;
-    float hp;
     Animator animator;
     float speed;
-    bool attack;
 
 
     //スムーズ度合い

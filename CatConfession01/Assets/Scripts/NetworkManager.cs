@@ -13,9 +13,12 @@ public class NetworkManager : MonoBehaviour {
     public Dropdown roomList;       //部屋リストを表示するドロップダウン
     public InputField roomName;     //部屋の名前
     public InputField playerName;   //プレイヤーの名前
+    public static string pName;    //入力された名前を格納しておく。
 
 //    private bool connectFailed = false;
     public GameObject player;
+    public GameObject titleCamera;   //タイトル画面用のカメラ
+    public GameObject cameraPrefab;
 
 
     // Use this for initialization
@@ -23,13 +26,12 @@ public class NetworkManager : MonoBehaviour {
     {
         //ログをすべて表示する
         PhotonNetwork.logLevel = PhotonLogLevel.Full;
-
+        
         //ロビーに自動で入る
         PhotonNetwork.autoJoinLobby = true;
 
         //ゲームのバージョン設定
         PhotonNetwork.ConnectUsingSettings("0.1");
-
 
         Debug.Log("開始");
 
@@ -69,7 +71,7 @@ public class NetworkManager : MonoBehaviour {
         //部屋の入室最大数
         ro.MaxPlayers = 10;
 
-        if(roomName.text != "")
+        if (roomName.text != "")
         {
             //部屋がない場合は作って入室
             PhotonNetwork.JoinOrCreateRoom(roomName.text, ro, TypedLobby.Default);
@@ -130,12 +132,36 @@ public class NetworkManager : MonoBehaviour {
         Debug.Log("入室");
 
         //Inputfieldに入力した名前を設定
-        PhotonNetwork.player.NickName = playerName.text;
+        if(playerName.text != "")
+        {
+            PhotonNetwork.player.NickName = playerName.text;
+            pName = playerName.text;
+        }
+        else
+        {
+            PhotonNetwork.player.NickName = "HUNTER";
+            pName = "HUNTER";
+        }
+
+        Instantiate(cameraPrefab, new Vector3(0f, 0.5f, -1.2f), Quaternion.identity);   //ゲーム内用のカメラを作成
+        titleCamera.SetActive(false);   //タイトル画面用のカメラを削除
 
         //ログインを監視する
         StartCoroutine("SetPlayer", 0f);
 
     }
+
+    //プレイヤーをゲームの世界に出現させる
+    IEnumerator SetPlayer(float time)
+    {
+        yield return new WaitForSeconds(time);
+        player = PhotonNetwork.Instantiate("cat", Vector3.up, Quaternion.identity, 0);
+        player.name = pName;        //作成されたプレイヤーのインスタンスに名前を付ける
+
+        player.GetPhotonView().RPC("SetName", PhotonTargets.AllBuffered, PhotonNetwork.player.NickName);
+    }
+
+
 
     //部屋の入室に失敗したときに呼ばれるメソッド
     void OnPhotonJoinedRoomFailed()
@@ -164,6 +190,8 @@ public class NetworkManager : MonoBehaviour {
     public void LogoutGame()
     {
         PhotonNetwork.LeaveRoom();
+        titleCamera.SetActive(true);   //タイトル画面用のカメラを作成
+
     }
 
     //部屋を退室したときの処理
@@ -174,13 +202,6 @@ public class NetworkManager : MonoBehaviour {
     }
 
 
-
-    //プレイヤーをゲームの世界に出現させる
-    IEnumerator SetPlayer(float time)
-    {
-        yield return new WaitForSeconds(time);
-        player = PhotonNetwork.Instantiate("cat", Vector3.up, Quaternion.identity, 0);
-    }
 
 
 }
