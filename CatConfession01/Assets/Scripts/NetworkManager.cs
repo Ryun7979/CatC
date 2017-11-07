@@ -37,15 +37,11 @@ public class NetworkManager : MonoBehaviour {
         //ゲームのバージョン設定
         PhotonNetwork.ConnectUsingSettings("0.1");
 
-        Init();
+        //サウンドマネージャーのオブジェクト
+        soundManager = GameObject.FindObjectOfType<SoundManager>();
 
         Debug.Log("開始");
 
-    }
-
-    void Init()
-    {
-        soundManager = GameObject.FindObjectOfType<SoundManager>();
     }
 
 
@@ -55,7 +51,7 @@ public class NetworkManager : MonoBehaviour {
 
         text.text = PhotonNetwork.connectionStateDetailed.ToString();
 
-        float lou = soundManager.GetLoudness();
+        float lou = soundManager.GetAveValume();
         MicIndex.text = lou.ToString();
     }
 
