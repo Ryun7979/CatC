@@ -6,7 +6,11 @@ using UnityEngine.UI;
 public class NetworkManager : MonoBehaviour {
 
 
+    SoundManager soundManager;  //サウンドマネージャーの初期化
+
     public Text text;   //情報用のテキスト
+    public Text MicIndex;
+
     public GameObject loginUI;      //ログイン画面
     public GameObject logoutUI;     //ログアウトボタン
 
@@ -33,8 +37,15 @@ public class NetworkManager : MonoBehaviour {
         //ゲームのバージョン設定
         PhotonNetwork.ConnectUsingSettings("0.1");
 
+        Init();
+
         Debug.Log("開始");
 
+    }
+
+    void Init()
+    {
+        soundManager = GameObject.FindObjectOfType<SoundManager>();
     }
 
 
@@ -44,6 +55,8 @@ public class NetworkManager : MonoBehaviour {
 
         text.text = PhotonNetwork.connectionStateDetailed.ToString();
 
+        float lou = soundManager.GetLoudness();
+        MicIndex.text = lou.ToString();
     }
 
 

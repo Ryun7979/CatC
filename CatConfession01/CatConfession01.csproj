@@ -245,6 +245,7 @@
     <Compile Include="Assets\Scripts\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayerCheck.cs" />
     <Compile Include="Assets\Scripts\OperationName.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\_Comp\Scripts\AniControl.cs" />
     <Compile Include="Assets\_Comp\Scripts\CharControl.cs" />
     <Compile Include="Assets\_Comp\Scripts\CharData.cs" />
