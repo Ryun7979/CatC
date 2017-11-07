@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class NetworkManager : MonoBehaviour {
 
 
-    SoundManager soundManager;  //サウンドマネージャーの初期化
+    SoundLisner soundLisner;  //サウンドマネージャーの初期化
 
     public Text text;   //情報用のテキスト
     public Text MicIndex;
@@ -38,7 +38,7 @@ public class NetworkManager : MonoBehaviour {
         PhotonNetwork.ConnectUsingSettings("0.1");
 
         //サウンドマネージャーのオブジェクト
-        soundManager = GameObject.FindObjectOfType<SoundManager>();
+        soundLisner = GameObject.FindObjectOfType<SoundLisner>();
 
         Debug.Log("開始");
 
@@ -51,7 +51,7 @@ public class NetworkManager : MonoBehaviour {
 
         text.text = PhotonNetwork.connectionStateDetailed.ToString();
 
-        float lou = soundManager.GetAveValume();
+        float lou = soundLisner.GetAveValume();
         MicIndex.text = lou.ToString();
     }
 

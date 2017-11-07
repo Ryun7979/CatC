@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Chara : MonoBehaviour {
 
+
+    SoundLisner soundLisner;  //サウンドマネージャーの初期化
+
+
     private Animator animator;
     private CharacterController cCon;
     private float x;
@@ -15,10 +19,18 @@ public class Chara : MonoBehaviour {
         animator = GetComponent<Animator>();
         cCon = GetComponent<CharacterController>();
         velocity = Vector3.zero;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+        //サウンドマネージャーのオブジェクト
+        soundLisner = GameObject.FindObjectOfType<SoundLisner>();
+
+
+    }
+
+    // Update is called once per frame
+    void Update () {
+
+        float lou = soundLisner.GetAveValume();
+
 
         //地面に設置しているときは初期化
         if (cCon.isGrounded)
@@ -35,7 +47,7 @@ public class Chara : MonoBehaviour {
                 animator.SetFloat("Speed", input.magnitude);
                 transform.LookAt(transform.position + input);
                 velocity += input.normalized * 0.5f;
-            //キーの押しが少なすぎるときは移動しない
+                //キーの押しが少なすぎるときは移動しない
             }
             else
             {
@@ -53,6 +65,12 @@ public class Chara : MonoBehaviour {
 
         velocity.y += Physics.gravity.y * Time.deltaTime;
         cCon.Move(velocity * Time.deltaTime);
-		
-	}
+
+        if (lou > 0.1)
+        {
+            SoundManager.Instance.StopVoice();
+            SoundManager.Instance.PlayVoice(0);
+        }
+
+    }
 }

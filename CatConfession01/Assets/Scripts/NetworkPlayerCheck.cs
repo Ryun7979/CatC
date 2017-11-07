@@ -6,6 +6,7 @@ using ExitGames.Client.Photon;
 public class NetworkPlayerCheck : Photon.MonoBehaviour {
 
 
+
     //同期するデータ
     Vector3 position;
     Quaternion rotation;
@@ -20,6 +21,7 @@ public class NetworkPlayerCheck : Photon.MonoBehaviour {
 	void Start () {
 
         animator = GetComponent<Animator>();
+
 
         //自分で操作する以外のキャラクターの不要な機能は使えないようにしておく。
         if (!photonView.isMine)
@@ -78,6 +80,6 @@ public class NetworkPlayerCheck : Photon.MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+    }
 }

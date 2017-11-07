@@ -245,7 +245,7 @@
     <Compile Include="Assets\Scripts\NetworkManager.cs" />
     <Compile Include="Assets\Scripts\NetworkPlayerCheck.cs" />
     <Compile Include="Assets\Scripts\OperationName.cs" />
-    <Compile Include="Assets\Scripts\SoundManager.cs" />
+    <Compile Include="Assets\Scripts\SoundLisner.cs" />
     <Compile Include="Assets\_Comp\Scripts\AniControl.cs" />
     <Compile Include="Assets\_Comp\Scripts\CharControl.cs" />
     <Compile Include="Assets\_Comp\Scripts\CharData.cs" />
@@ -254,6 +254,7 @@
     <Compile Include="Assets\_Comp\Scripts\Locomotion.cs" />
     <Compile Include="Assets\_Comp\Scripts\LocomotionPlayer.cs" />
     <Compile Include="Assets\_Comp\Scripts\sctCharRot.cs" />
+    <Compile Include="Assets\public_script\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Photon Unity Networking\Demos\DemoBoxes\Resources\eurof_tt.txt" />
