@@ -34,9 +34,9 @@ public class SoundManager : MonoBehaviour
     // BGM
     private AudioSource BGMsource;
     // SE
-    private AudioSource[] SEsources = new AudioSource[16];
+    private AudioSource[] SEsources = new AudioSource[1];
     // 音声
-    private AudioSource[] VoiceSources = new AudioSource[16];
+    private AudioSource[] VoiceSources = new AudioSource[1];
 
     // === AudioClip ===
     // BGM

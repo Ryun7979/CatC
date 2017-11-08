@@ -14,11 +14,15 @@ public class Chara : MonoBehaviour {
     private float y;
     private Vector3 velocity;
 
-	// Use this for initialization
-	void Start () {
+    public int VoiceNo;
+    private PhotonView myPhotonView;
+
+    // Use this for initialization
+    void Start () {
         animator = GetComponent<Animator>();
         cCon = GetComponent<CharacterController>();
         velocity = Vector3.zero;
+
 
         //サウンドマネージャーのオブジェクト
         soundLisner = GameObject.FindObjectOfType<SoundLisner>();
@@ -29,7 +33,10 @@ public class Chara : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
+        myPhotonView = this.GetComponent<PhotonView>();
+
         float lou = soundLisner.GetAveValume();
+
 
 
         //地面に設置しているときは初期化
@@ -66,11 +73,36 @@ public class Chara : MonoBehaviour {
         velocity.y += Physics.gravity.y * Time.deltaTime;
         cCon.Move(velocity * Time.deltaTime);
 
-        if (lou > 0.1)
+        if (lou > 0.05)
         {
-            SoundManager.Instance.StopVoice();
-            SoundManager.Instance.PlayVoice(0);
+            VoiceNo = 0;
+
+            if (lou > 0.1)
+            {
+                VoiceNo = 1;
+            }else if (lou > 0.3)
+            {
+                VoiceNo = 2;
+            }
+
+            this.myPhotonView.RPC("CatHowl", PhotonTargets.All);
         }
 
     }
+
+    [PunRPC]
+    void CatHowl(){
+
+ //       SoundManager.Instance.StopVoice();
+        SoundManager.Instance.PlayVoice(VoiceNo);
+
+    }
+
+
+
+
+
+
+
+
 }
