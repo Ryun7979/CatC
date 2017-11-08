@@ -12,7 +12,6 @@ public class SoundLisner : MonoBehaviour {
     }
 
     float vol;
-
     private new AudioSource audio;
 
     void Start()

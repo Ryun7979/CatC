@@ -13,8 +13,9 @@ public class Chara : MonoBehaviour {
     private float x;
     private float y;
     private Vector3 velocity;
+    private int VoiceNo;
 
-    public int VoiceNo;
+    public float jumpPower;
     private PhotonView myPhotonView;
 
     // Use this for initialization
@@ -26,17 +27,13 @@ public class Chara : MonoBehaviour {
 
         //サウンドマネージャーのオブジェクト
         soundLisner = GameObject.FindObjectOfType<SoundLisner>();
-
-
     }
 
     // Update is called once per frame
     void Update () {
 
         myPhotonView = this.GetComponent<PhotonView>();
-
         float lou = soundLisner.GetAveValume();
-
 
 
         //地面に設置しているときは初期化
@@ -61,17 +58,15 @@ public class Chara : MonoBehaviour {
                 animator.SetFloat("Speed", 0);
             }
 
-            if(Input.GetButtonDown("Fire1")
-                && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")
-                && !animator.IsInTransition(0)
-                )
+            if(Input.GetButtonDown("Jump"))
             {
-                animator.SetTrigger("Attack");
+                velocity.y += jumpPower;
             }
         }
 
         velocity.y += Physics.gravity.y * Time.deltaTime;
         cCon.Move(velocity * Time.deltaTime);
+
 
         if (lou > 0.05)
         {
@@ -93,7 +88,6 @@ public class Chara : MonoBehaviour {
     [PunRPC]
     void CatHowl(){
 
- //       SoundManager.Instance.StopVoice();
         SoundManager.Instance.PlayVoice(VoiceNo);
 
     }

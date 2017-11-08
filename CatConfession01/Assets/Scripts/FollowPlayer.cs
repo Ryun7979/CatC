@@ -12,7 +12,6 @@ public class FollowPlayer : MonoBehaviour {
     void Start()
     {
 
-        difference = transform.localPosition;
 
         //pNの中にプレイヤーの名前を拾っておく
         pN = NetworkManager.pName;
