@@ -50,7 +50,7 @@ public class Chara : MonoBehaviour {
             {
                 animator.SetFloat("Speed", input.magnitude);
                 transform.LookAt(transform.position + input);
-                velocity += input.normalized * 0.5f;
+                velocity += input.normalized * 1f;
                 //キーの押しが少なすぎるときは移動しない
             }
             else
@@ -93,10 +93,26 @@ public class Chara : MonoBehaviour {
     }
 
 
+    //Toysタグが付いたオブジェクトとの当たり判定
 
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
 
+        //物体を押す処理（Toysタグのついてるオブジェクトは押せる）
+        if (hit.gameObject.tag == "Toys")
+        {
+            Rigidbody body = hit.collider.attachedRigidbody;
 
+            if (body == null || body.isKinematic) { return; }    //rigidBodyがない、もしくは物理演算の影響を受けない設定をされている 
+            if (hit.moveDirection.y < -0.3) { return; }            //押す力が弱い 
 
+            Vector3 pushDir = new Vector3(hit.moveDirection.x, 1, hit.moveDirection.z);    //y成分を１に 
+
+            float pushPower = 3.0f;
+            body.velocity = pushDir * pushPower;    //押す力を加える 
+        }
+
+    }
 
 
 }

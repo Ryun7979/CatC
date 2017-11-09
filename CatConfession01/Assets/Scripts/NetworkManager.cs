@@ -21,6 +21,7 @@ public class NetworkManager : MonoBehaviour {
 
 //    private bool connectFailed = false;
     public GameObject player;
+    public GameObject Toyball;
     public GameObject titleCamera;   //タイトル画面用のカメラ
     public GameObject cameraPrefab;
 
@@ -155,6 +156,10 @@ public class NetworkManager : MonoBehaviour {
         Instantiate(cameraPrefab, new Vector3(0f, 0.5f, -1.2f), Quaternion.identity);   //ゲーム内用のカメラを作成
         titleCamera.SetActive(false);   //タイトル画面用のカメラを削除
 
+        //ToyItemを出現させる。
+        Vector3 Toypos = new Vector3(0.2f,0.5f,1.0f);   //ボールが出てくる場所指定
+        Toyball = PhotonNetwork.InstantiateSceneObject("ball", Toypos, Quaternion.identity, 0,null);
+
         //ログインを監視する
         StartCoroutine("SetPlayer", 0f);
 
@@ -166,7 +171,6 @@ public class NetworkManager : MonoBehaviour {
         yield return new WaitForSeconds(time);
         player = PhotonNetwork.Instantiate("cat", Vector3.up, Quaternion.identity, 0);
         player.name = pName;        //作成されたプレイヤーのインスタンスに名前を付ける
-
         player.GetPhotonView().RPC("SetName", PhotonTargets.AllBuffered, PhotonNetwork.player.NickName);
     }
 
