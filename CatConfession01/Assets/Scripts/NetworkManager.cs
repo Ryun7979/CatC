@@ -21,9 +21,12 @@ public class NetworkManager : MonoBehaviour {
 
 //    private bool connectFailed = false;
     public GameObject player;
-    public GameObject Toyball;
     public GameObject titleCamera;   //タイトル画面用のカメラ
     public GameObject cameraPrefab;
+    
+//    public GameObject Toyball;
+    public GameObject ToyScball;
+    public GameObject ToyTeddy;
 
 
     // Use this for initialization
@@ -157,8 +160,13 @@ public class NetworkManager : MonoBehaviour {
         titleCamera.SetActive(false);   //タイトル画面用のカメラを削除
 
         //ToyItemを出現させる。
-        Vector3 Toypos = new Vector3(0.2f,0.5f,1.0f);   //ボールが出てくる場所指定
-        Toyball = PhotonNetwork.InstantiateSceneObject("ball", Toypos, Quaternion.identity, 0,null);
+//        Vector3 Toypos = new Vector3(0.2f,0.5f,1.0f);   //ボールが出てくる場所指定
+        Vector3 ToyposSc = new Vector3(-0.2f, 0.5f, 0.8f);   //サッカーボールが出てくる場所指定
+        Vector3 ToyposTeddy = new Vector3(0.1f, 0.5f, 1.5f);   //ベアが出てくる場所指定
+
+//        Toyball = PhotonNetwork.InstantiateSceneObject("ball", Toypos, Quaternion.identity, 0,null);
+        ToyScball = PhotonNetwork.InstantiateSceneObject("Soccer Ball", ToyposSc, Quaternion.identity, 0, null);
+        ToyTeddy = PhotonNetwork.InstantiateSceneObject("Teddybear", ToyposTeddy, Quaternion.identity, 0, null);
 
         //ログインを監視する
         StartCoroutine("SetPlayer", 0f);
