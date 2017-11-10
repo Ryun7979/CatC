@@ -22,7 +22,7 @@ public class NetworkManager : MonoBehaviour {
 //    private bool connectFailed = false;
     public GameObject player;
     public GameObject titleCamera;   //タイトル画面用のカメラ
-    public GameObject cameraPrefab;
+    public GameObject mainCamera;   //ゲーム中のカメラ
     
 //    public GameObject Toyball;
     public GameObject ToyScball;
@@ -54,6 +54,7 @@ public class NetworkManager : MonoBehaviour {
     {
 
         text.text = PhotonNetwork.connectionStateDetailed.ToString();
+
 
         float lou = soundLisner.GetAveValume();
         MicIndex.text = lou.ToString();
@@ -156,17 +157,11 @@ public class NetworkManager : MonoBehaviour {
             pName = "HUNTER";
         }
 
-        Instantiate(cameraPrefab, new Vector3(0f, 0.5f, -1.2f), Quaternion.identity);   //ゲーム内用のカメラを作成
-        titleCamera.SetActive(false);   //タイトル画面用のカメラを削除
+        titleCamera.SetActive(false);   //タイトル画面用のカメラを無効
+        mainCamera.SetActive(true);     //ゲーム内のカメラを有効
 
-        //ToyItemを出現させる。
-//        Vector3 Toypos = new Vector3(0.2f,0.5f,1.0f);   //ボールが出てくる場所指定
-        Vector3 ToyposSc = new Vector3(-0.2f, 0.5f, 0.8f);   //サッカーボールが出てくる場所指定
-        Vector3 ToyposTeddy = new Vector3(0.1f, 0.5f, 1.5f);   //ベアが出てくる場所指定
+//        Toyball = PhotonNetwork.InstantiateSceneObject("ball", new Vector3(0.2f,0.5f,1.0f), Quaternion.identity, 0,null);
 
-//        Toyball = PhotonNetwork.InstantiateSceneObject("ball", Toypos, Quaternion.identity, 0,null);
-        ToyScball = PhotonNetwork.InstantiateSceneObject("Soccer Ball", ToyposSc, Quaternion.identity, 0, null);
-        ToyTeddy = PhotonNetwork.InstantiateSceneObject("Teddybear", ToyposTeddy, Quaternion.identity, 0, null);
 
         //ログインを監視する
         StartCoroutine("SetPlayer", 0f);
@@ -180,6 +175,10 @@ public class NetworkManager : MonoBehaviour {
         player = PhotonNetwork.Instantiate("cat", Vector3.up, Quaternion.identity, 0);
         player.name = pName;        //作成されたプレイヤーのインスタンスに名前を付ける
         player.GetPhotonView().RPC("SetName", PhotonTargets.AllBuffered, PhotonNetwork.player.NickName);
+
+
+        ToyScball = PhotonNetwork.InstantiateSceneObject("Soccer Ball", new Vector3(-0.2f, 0.5f, 0.8f), Quaternion.identity, 0, null);
+        ToyTeddy = PhotonNetwork.InstantiateSceneObject("Teddybear", new Vector3(0.1f, 0.5f, 1.5f), Quaternion.identity, 0, null);
     }
 
 
@@ -211,8 +210,8 @@ public class NetworkManager : MonoBehaviour {
     public void LogoutGame()
     {
         PhotonNetwork.LeaveRoom();
-        titleCamera.SetActive(true);   //タイトル画面用のカメラを作成
-
+        titleCamera.SetActive(true);   //タイトル画面用のカメラを有効
+        mainCamera.SetActive(false);    //ゲーム中のカメラを無効
     }
 
     //部屋を退室したときの処理
@@ -221,8 +220,6 @@ public class NetworkManager : MonoBehaviour {
         Debug.Log("退室");
         logoutUI.SetActive(false);
     }
-
-
 
 
 }

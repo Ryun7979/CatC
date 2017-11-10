@@ -12,14 +12,28 @@ public class SoundLisner : MonoBehaviour {
     }
 
     float vol;
+
     private new AudioSource audio;
+    public AudioSource Audio
+    {
+        get
+        {
+            return audio;
+        }
+
+        set
+        {
+            audio = value;
+        }
+    }
+
+
 
     void Start()
     {
         audio = GetComponent<AudioSource>();
         audio.clip = Microphone.Start(null, true, 999, 44100);  // マイクからのAudio-InをAudioSourceに流す
         audio.loop = true;                                      // ループ再生にしておく
- //       audio.mute = true;                                      // マイクからの入力音なので音を流す必要がない
         while (!(Microphone.GetPosition("") > 0)) { }             // マイクが取れるまで待つ。空文字でデフォルトのマイクを探してくれる
         audio.Play();                                           // 再生する
     }
@@ -27,7 +41,6 @@ public class SoundLisner : MonoBehaviour {
     void Update()
     {
         vol = GetAveragedVolume();
-//        Debug.Log(vol);
     }
 
     float GetAveragedVolume()

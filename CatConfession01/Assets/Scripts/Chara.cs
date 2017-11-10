@@ -106,10 +106,12 @@ public class Chara : MonoBehaviour {
             if (body == null || body.isKinematic) { return; }    //rigidBodyがない、もしくは物理演算の影響を受けない設定をされている 
             if (hit.moveDirection.y < -0.3) { return; }            //押す力が弱い 
 
-            Vector3 pushDir = new Vector3(hit.moveDirection.x, 1, hit.moveDirection.z);    //y成分を１に 
+//            Vector3 pushDir = new Vector3(hit.moveDirection.x, hit.moveDirection.y + 1.0f, hit.moveDirection.z);    //y成分を１に 
+//            Vector3 pushDir = new Vector3(hit.moveDirection.x, hit.moveDirection.y, hit.moveDirection.z);    //y成分を0に 
 
-            float pushPower = 3.0f;
-            body.velocity = pushDir * pushPower;    //押す力を加える 
+            float pushPower = 2.2f;
+            body.AddForce(new Vector3(hit.moveDirection.x *pushPower, hit.moveDirection.y + 2.0f, hit.moveDirection.z * pushPower), ForceMode.VelocityChange);
+            //            body.velocity = pushDir * pushPower;    //押す力を加える 
         }
 
     }

@@ -14,9 +14,10 @@ public class NetworkToys : Photon.MonoBehaviour {
         //部屋を作った人じゃないなら
         if (!photonView.isMine)
         {
+
 //            GetComponent<Rigidbody>().isKinematic = true;
-            transform.position = Vector3.Lerp(transform.position, this.correctToysPos, Time.deltaTime * 10);
-            transform.rotation = Quaternion.Lerp(transform.rotation, this.correctToysRot, Time.deltaTime * 10);
+            transform.position = Vector3.Lerp(transform.position, this.correctToysPos, Time.deltaTime * 5);
+            transform.rotation = Quaternion.Lerp(transform.rotation, this.correctToysRot, Time.deltaTime * 5);
 
 //            Debug.Log("部屋作成者でないよ");
         }
