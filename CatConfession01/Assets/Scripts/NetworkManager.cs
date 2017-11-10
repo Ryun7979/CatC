@@ -39,7 +39,7 @@ public class NetworkManager : MonoBehaviour {
         PhotonNetwork.autoJoinLobby = true;
 
         //ゲームのバージョン設定
-        PhotonNetwork.ConnectUsingSettings("0.1");
+        PhotonNetwork.ConnectUsingSettings("v0.1");
 
         //サウンドマネージャーのオブジェクト
         soundLisner = GameObject.FindObjectOfType<SoundLisner>();
