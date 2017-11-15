@@ -10,6 +10,7 @@ public class NetworkManager : MonoBehaviour {
 
     public Text text;   //情報用のテキスト
     public Text MicIndex;
+    public Text pitchTxt;
 
     public GameObject loginUI;      //ログイン画面
     public GameObject logoutUI;     //ログアウトボタン
@@ -62,9 +63,16 @@ public class NetworkManager : MonoBehaviour {
 
         text.text = PhotonNetwork.connectionStateDetailed.ToString();
 
-
         float lou = soundLisner.GetAveValume();
         MicIndex.text = lou.ToString();
+
+        if(lou > 0.05)
+        {
+            string sndScale = soundLisner.GetSoundScale();
+            pitchTxt.text = sndScale;
+        }
+
+
     }
 
 
