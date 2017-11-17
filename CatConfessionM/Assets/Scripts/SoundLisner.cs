@@ -17,7 +17,6 @@ public class SoundLisner : MonoBehaviour {
     }
 
 
-
     float vol;
     float qsmp;
 
@@ -29,20 +28,7 @@ public class SoundLisner : MonoBehaviour {
     private float fSample;  //サンプリング周波数
     private string soundScaleTex;
 
-    private new AudioSource audio;
-    public AudioSource Audio
-    {
-        get
-        {
-            return audio;
-        }
-
-        set
-        {
-            audio = value;
-        }
-    }
-
+    new AudioSource audio;
 
     void Start()
     {
