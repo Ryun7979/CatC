@@ -18,7 +18,6 @@ public class NetworkManager : MonoBehaviour {
 
     public Dropdown roomList;       //部屋リストを表示するドロップダウン
     public InputField roomName;     //部屋の名前
-    public InputField playerName;   //プレイヤーの名前
     public static string pName;    //入力された名前を格納しておく。
 
 //    private bool connectFailed = false;
@@ -30,6 +29,10 @@ public class NetworkManager : MonoBehaviour {
     public GameObject ToyScball;
     public GameObject ToyTeddy;
 
+    private int playerCountRoom1;
+    private int playerCountRoom2;
+    private int playerCountRoom3;
+
 
     // Use this for initialization
     void Start()
@@ -38,6 +41,13 @@ public class NetworkManager : MonoBehaviour {
         //UIの初期化
         logoutUI.SetActive(false);
         mobileUI.SetActive(false);
+
+        //ドロップダウンリストに追加する文字列用リストを作成
+        List<string> list = new List<string>();
+        list.Add("Room1");
+        list.Add("Room2");
+        list.Add("Room3");
+        roomList.AddOptions(list);
 
 
         //ログをすべて表示する
@@ -68,8 +78,8 @@ public class NetworkManager : MonoBehaviour {
 
         if(lou > 0.05)
         {
-            string sndScale = soundLisner.GetSoundScale();
-            pitchTxt.text = sndScale;
+            int sndScale = soundLisner.GetSoundScale();
+            pitchTxt.text = sndScale.ToString();
         }
 
 
@@ -100,27 +110,15 @@ public class NetworkManager : MonoBehaviour {
         //部屋の入室最大数
         ro.MaxPlayers = 10;
 
-        if (roomName.text != "")
+        //リストから選んだ部屋を
+        if (roomList.options.Count != 0)
         {
-            //部屋がない場合は作って入室
-            PhotonNetwork.JoinOrCreateRoom(roomName.text, ro, TypedLobby.Default);
-        }
-        else
-        {
-            //部屋が存在したら
-            if(roomList.options.Count != 0)
-            {
-                Debug.Log(roomList.options[roomList.value].text);
-                PhotonNetwork.JoinRoom(roomList.options[roomList.value].text);
-            //部屋が無ければDefaultRoomという名前で部屋を作成
-            }
-            else
-            {
-                PhotonNetwork.JoinOrCreateRoom("DefaultRoom", ro, TypedLobby.Default);
-            }
+            Debug.Log(roomList.options[roomList.value].text);
+            PhotonNetwork.JoinOrCreateRoom(roomList.options[roomList.value].text, ro, TypedLobby.Default);
+        //部屋が無ければDefaultRoomという名前で部屋を作成
         }
     }
-
+    
 
     void OnReceivedRoomListUpdate()
     {
@@ -129,7 +127,19 @@ public class NetworkManager : MonoBehaviour {
         //部屋情報を取得
         RoomInfo[] rooms = PhotonNetwork.GetRoomList();
 
-        //ドロップダウンリストに追加する文字列用リストを作成
+        foreach (RoomInfo room in rooms)
+        {
+            if (room.Name == "Room1") playerCountRoom1 = room.PlayerCount;
+            else if (room.Name == "Room2") playerCountRoom2 = room.PlayerCount;
+            else if (room.Name == "Room3") playerCountRoom3 = room.PlayerCount;
+
+            Debug.Log("なまえは～："+room.Name + playerCountRoom1 + playerCountRoom2 + playerCountRoom3);  //部屋名
+            Debug.Log("いまいるひとは～："+room.PlayerCount);    //部屋の入場人数
+            Debug.Log("さいだいは～："+room.MaxPlayers);  //最大人数
+        }
+
+
+        /*
         List<string> list = new List<string>();
 
         //部屋情報を部屋リストに表示
@@ -141,15 +151,17 @@ public class NetworkManager : MonoBehaviour {
                 list.Add(room.Name);
             }
         }
-
+        
         //ドロップダウンリストをリセット
         roomList.ClearOptions();
-
+       
         //部屋が一つでもあれば、ドロップダウンリストに追加
         if (list.Count != 0)
         {
             roomList.AddOptions(list);
         }
+
+        */
 
     }
 
@@ -161,8 +173,13 @@ public class NetworkManager : MonoBehaviour {
         mobileUI.SetActive(true);
         Debug.Log("入室");
 
+        //プレイヤーの名前は、ROOMの中の人数から自動決定
+        pName = "CAT_" + PhotonNetwork.room.playerCount;
+        PhotonNetwork.player.NickName = pName;
+
+        /*
         //Inputfieldに入力した名前を設定
-        if(playerName.text != "")
+        if (playerName.text != "")
         {
             PhotonNetwork.player.NickName = playerName.text;
             pName = playerName.text;
@@ -172,12 +189,10 @@ public class NetworkManager : MonoBehaviour {
             PhotonNetwork.player.NickName = "HUNTER";
             pName = "HUNTER";
         }
+        */
 
         titleCamera.SetActive(false);   //タイトル画面用のカメラを無効
         mainCamera.SetActive(true);     //ゲーム内のカメラを有効
-
-        //        Toyball = PhotonNetwork.InstantiateSceneObject("ball", new Vector3(0.2f,0.5f,1.0f), Quaternion.identity, 0,null);
-
 
         //ログインを監視する
         StartCoroutine("SetPlayer", 0f);

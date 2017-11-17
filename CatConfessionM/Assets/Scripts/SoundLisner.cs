@@ -11,9 +11,9 @@ public class SoundLisner : MonoBehaviour {
     {
         return vol;
     }
-    public string GetSoundScale()
+    public int GetSoundScale()
     {
-        return soundScaleTex;
+        return soundScaleInt;
     }
 
 
@@ -27,6 +27,7 @@ public class SoundLisner : MonoBehaviour {
     float[] spectrum = new float[1024]; //FFTされたデータ
     private float fSample;  //サンプリング周波数
     private string soundScaleTex;
+    private int soundScaleInt;
 
     new AudioSource audio;
 
@@ -43,7 +44,7 @@ public class SoundLisner : MonoBehaviour {
     {
         vol = GetAveragedVolume();
         qsmp = ConvertHertzToScale(AnalyzeSound());
-        soundScaleTex = ConvertScaleToString(qsmp);
+        soundScaleInt = ConvertScaleToInt(qsmp);
 
     }
 
@@ -106,7 +107,7 @@ public class SoundLisner : MonoBehaviour {
 
     //数値音階から文字音階への変換
 
-    string ConvertScaleToString(float scale)
+    int ConvertScaleToInt(float scale)
     {
         //12音階の何倍の精度で音階をみるか
         int precision = 2;
@@ -117,35 +118,35 @@ public class SoundLisner : MonoBehaviour {
         s *= precision;
 
         int smod = s % (12 * precision);    //音階
-        int soct = s / (12 * precision);    //オクターブ
+//        int soct = s / (12 * precision);    //オクターブ
 
-        string value;   //返す値
+        int value;   //返す値
 
-        if (smod == 0) value = "A";
-        else if (smod == 1) value = "A+";
-        else if (smod == 2) value = "A#";
-        else if (smod == 3) value = "A#+";
-        else if (smod == 4) value = "B";
-        else if (smod == 5) value = "B+";
-        else if (smod == 6) value = "C";
-        else if (smod == 7) value = "C+";
-        else if (smod == 8) value = "C#";
-        else if (smod == 9) value = "C#+";
-        else if (smod == 10) value = "D";
-        else if (smod == 11) value = "D+";
-        else if (smod == 12) value = "D#";
-        else if (smod == 13) value = "D#+";
-        else if (smod == 14) value = "E";
-        else if (smod == 15) value = "E+";
-        else if (smod == 16) value = "F";
-        else if (smod == 17) value = "F+";
-        else if (smod == 18) value = "F#";
-        else if (smod == 19) value = "F#+";
-        else if (smod == 20) value = "G";
-        else if (smod == 21) value = "G+";
-        else if (smod == 22) value = "G#";
-        else value = "G#+";
-        value += soct + 1;
+        if (smod == 0) value = 1;           //"A";
+        else if (smod == 1) value = 1;      //"A+";
+        else if (smod == 2) value = 2;      //"A#";
+        else if (smod == 3) value = 2;      //"A#+";
+        else if (smod == 4) value = 3;      //"B";
+        else if (smod == 5) value = 3;      //"B+";
+        else if (smod == 6) value = 4;      //"C";
+        else if (smod == 7) value = 4;      //"C+";
+        else if (smod == 8) value = 5;      //"C#";
+        else if (smod == 9) value = 5;      //"C#+";
+        else if (smod == 10) value = 6;     //"D";
+        else if (smod == 11) value = 6;     //"D+";
+        else if (smod == 12) value = 7;     //"D#";
+        else if (smod == 13) value = 7;     //"D#+";
+        else if (smod == 14) value = 8;     //"E";
+        else if (smod == 15) value = 8;     //"E+";
+        else if (smod == 16) value = 9;     //"F";
+        else if (smod == 17) value = 9;     //"F+";
+        else if (smod == 18) value = 10;    //"F#";
+        else if (smod == 19) value = 10;    //"F#+";
+        else if (smod == 20) value = 11;    //"G";
+        else if (smod == 21) value = 11;    //"G+";
+        else if (smod == 22) value = 12;    //"G#";
+        else value = 12;                    //"G#+";
+//        value += soct + 1;
 
         return value;
     }

@@ -80,21 +80,29 @@ public class Chara : MonoBehaviour {
         velocity.y += Physics.gravity.y * Time.deltaTime;
         cCon.Move(velocity * Time.deltaTime);
 
-
+        //鳴き声判定部分　lou：音量　　sndScale：音程
         if (lou > 0.05)
         {
-            VoiceNo = 0;
+            int sndScale = soundLisner.GetSoundScale();
+            Debug.Log(sndScale);
+
+            int howlSelectRandom = Random.Range(0, 1 + 1) * 12;
+            int howlSelectlou =0;
 
             if (lou > 0.1)
             {
-                VoiceNo = 1;
+                howlSelectlou = 24;
             }else if (lou > 0.3)
             {
-                VoiceNo = 2;
+                howlSelectlou = 48;
             }
+
+            VoiceNo = (howlSelectlou + howlSelectRandom + sndScale) -1;
+            Debug.Log(VoiceNo);
 
             this.myPhotonView.RPC("CatHowl", PhotonTargets.All);
         }
+
 
     }
 
